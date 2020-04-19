@@ -33,6 +33,7 @@ License: GPL2
 // }
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/usual_functions_01.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/usual_functions_02.php';
 
 if(!defined('OneYear'))define('OneYear', 31104000);
 if(!defined('OneMonth'))define('OneMonth', 2592000);
