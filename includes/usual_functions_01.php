@@ -1,10 +1,38 @@
 <?php
 
+add_action('init','rasolo_helper_block_wp_admin_init');
+function rasolo_helper_block_wp_admin_init()
+       {
+
+if(wp_doing_ajax()){
+    return;
+}
+if(is_user_logged_in()){
+    return;
+}
+if( strpos(strtolower($_SERVER['REQUEST_URI']),'/wp-admin/') === false ){
+    return;
+}
+//    if ( !is_admin() ) {
+$remote_addr=$_SERVER['REMOTE_ADDR'];
+if('194.6.231'==substr($remote_addr,0,9)){
+    $redir_url=wp_login_url();
+} else {
+    $redir_url=get_option('siteurl');
+}
+//        die('_2352='.$remote_addr.'{==3523_');
+wp_redirect( $redir_url, 302 );
+exit;
+//    };
+
+       };  // The end of block_wp_admin_init
+
+
 add_action('admin_init','rasolo_remove_yoast_notifications',2);
 
 function rasolo_remove_yoast_notifications()
        {
-if (!is_plugin_active('wordpress-seo/wp-seo.php')) {
+if (! (is_plugin_active('wordpress-seo/wp-seo.php') || is_plugin_active('rasolo-seo/wp-seo.php') )) {
     return;
 }
 /* Remove HTML Comments */
